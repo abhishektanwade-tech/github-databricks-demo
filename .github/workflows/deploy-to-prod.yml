@@ -31,7 +31,7 @@ jobs:
             
         run: |
           mkdir -p ~/.databricks
-          echo $DATABRICKS_HOST
+          echo "$DATABRICKS_HOST"
           echo -e "[DEFAULT]\nhost = $DATABRICKS_HOST\ntoken = $DATABRICKS_TOKEN" > ~/.databricks/config
           chmod 600 ~/.databricks/config
 
