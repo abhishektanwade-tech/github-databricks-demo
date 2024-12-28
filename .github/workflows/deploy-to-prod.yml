@@ -28,7 +28,7 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST_PROD }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
           
-        - script: echo $DATABRICKS_HOST
+      - script: echo $DATABRICKS_HOST
             
         run: |
           mkdir -p ~/.databricks
