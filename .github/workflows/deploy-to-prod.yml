@@ -34,6 +34,7 @@ jobs:
           echo "$DATABRICKS_HOST"
           echo -e "[DEFAULT]\nhost = $DATABRICKS_HOST\ntoken = $DATABRICKS_TOKEN" > ~/.databricks/config
           chmod 600 ~/.databricks/config
+          cat ~/.databricks/config
 
       - name: Deploy Notebooks to Prod Workspace
         run: |
