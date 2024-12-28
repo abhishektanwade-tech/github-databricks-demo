@@ -38,5 +38,5 @@ jobs:
 
       - name: Deploy Notebooks to Prod Workspace
         run: |
-          databricks workspace import-dir --overwrite notebooks /notebooks
+          databricks workspace import_dir --overwrite notebooks /notebooks --host "https://adb-2704412929221880.0.azuredatabricks.net/" --token "dapi2c154c340f172aed52d814616c94be1b"
 
