@@ -25,8 +25,8 @@ jobs:
 
       - name: Configure Databricks CLI for Prod
         env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST_PROD }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
+          DATABRICKS_HOST: "https://adb-2704412929221880.0.azuredatabricks.net/"
+          DATABRICKS_TOKEN: "dapi2c154c340f172aed52d814616c94be1b"
           
             
         run: |
