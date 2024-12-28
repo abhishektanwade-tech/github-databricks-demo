@@ -38,5 +38,5 @@ jobs:
 
       - name: Deploy Notebooks to Prod Workspace
         run: |
-          databricks workspace import_dir --overwrite notebooks /Production/notebooks
+          databricks workspace import_dir --overwrite notebooks /notebooks
 
