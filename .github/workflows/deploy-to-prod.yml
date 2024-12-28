@@ -28,10 +28,10 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST_PROD }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
           
-      - script: echo $DATABRICKS_HOST
             
         run: |
           mkdir -p ~/.databricks
+          echo $DATABRICKS_HOST
           echo -e "[DEFAULT]\nhost = $DATABRICKS_HOST\ntoken = $DATABRICKS_TOKEN" > ~/.databricks/config
           chmod 600 ~/.databricks/config
 
