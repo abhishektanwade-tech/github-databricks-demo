@@ -47,5 +47,5 @@ jobs:
         run: |
           while IFS= read -r notebook; do
             echo $notebook
-            databricks workspace import --overwrite --language PYTHON "$notebook" "/Workspace/notebooks/$notebook"
+            databricks workspace import --overwrite --language PYTHON "$notebook" "$notebook"
           done < changed_files.txt
