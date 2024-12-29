@@ -32,9 +32,11 @@ jobs:
         run: |
           if git rev-parse HEAD~1 >/dev/null 2>&1; then
               # For subsequent commits
+              echo "Only changed"
               git diff --name-only --diff-filter=AM HEAD~1 HEAD notebooks/ > changed_files.txt
           else
               # For the first commit
+              echo "First commit, deploying all notebooks"
               git ls-files notebooks/ > changed_files.txt
           fi
           cat changed_files.txt
@@ -46,6 +48,6 @@ jobs:
           DATABRICKS_TOKEN: "dapi2c154c340f172aed52d814616c94be1b"
         run: |
           while IFS= read -r notebook; do
-            echo $notebook
+            echo "Only changed $notebook"
             databricks workspace import --overwrite --language PYTHON "$notebook" "/$notebook"
           done < changed_files.txt
