@@ -31,15 +31,16 @@ jobs:
         id: changes
         run: |
           if git rev-parse HEAD~1 >/dev/null 2>&1; then
-            git diff --name-only --diff-filter=AM HEAD~1 HEAD notebooks/ > changed_files.txt
+              # For subsequent commits
+              git diff --name-only --diff-filter=AM HEAD~1 HEAD notebooks/ > changed_files.txt
           else
-            echo "First commit, deploying all notebooks"
-            git ls-files notebooks/ > changed_files.txt
+              # For the first commit
+              git ls-files notebooks/ > changed_files.txt
           fi
           cat changed_files.txt
 
       - name: Deploy Only Changed Notebooks
-        if: steps.changes.outputs.changed_files != ''
+        if: success()
         env:
           DATABRICKS_HOST: "https://adb-2704412929221880.0.azuredatabricks.net/"
           DATABRICKS_TOKEN: "dapi2c154c340f172aed52d814616c94be1b"
