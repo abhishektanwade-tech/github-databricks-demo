@@ -1,4 +1,4 @@
-name: Deploy Notebooks to Prod
+name: Deploy Changed Notebooks to Prod
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy Notebooks to Prod Workspace
+    name: Deploy Changed Notebooks to Prod
     runs-on: ubuntu-latest
 
     steps:
@@ -22,15 +22,20 @@ jobs:
       - name: Install Databricks CLI
         run: |
           pip install databricks-cli
-          
+
       - name: Validate Databricks CLI Installation
         run: |
           databricks --version
-          
+
       - name: Identify Changed Notebooks
         id: changes
         run: |
-          git diff --name-only HEAD~1 HEAD notebooks/ > changed_files.txt
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            git diff --name-only HEAD~1 HEAD notebooks/ > changed_files.txt
+          else
+            echo "First commit, deploying all notebooks"
+            find notebooks -type f > changed_files.txt
+          fi
           cat changed_files.txt
 
       - name: Deploy Only Changed Notebooks
