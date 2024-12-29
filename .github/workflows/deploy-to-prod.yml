@@ -46,5 +46,5 @@ jobs:
           DATABRICKS_TOKEN: "dapi2c154c340f172aed52d814616c94be1b"
         run: |
           while IFS= read -r notebook; do
-            databricks workspace import --overwrite --language PYTHON "$notebook" "/notebooks"
+            databricks workspace import --overwrite --language PYTHON "$notebook" "/Workspace/notebooks/$notebook"
           done < changed_files.txt
