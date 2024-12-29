@@ -26,11 +26,19 @@ jobs:
       - name: Validate Databricks CLI Installation
         run: |
           databricks --version
+          
+      - name: Identify Changed Notebooks
+        id: changes
+        run: |
+          git diff --name-only HEAD~1 HEAD notebooks/ > changed_files.txt
+          cat changed_files.txt
 
-      - name: Configure Databricks CLI for Prod
+      - name: Deploy Only Changed Notebooks
+        if: steps.changes.outputs.changed_files != ''
         env:
           DATABRICKS_HOST: "https://adb-2704412929221880.0.azuredatabricks.net/"
           DATABRICKS_TOKEN: "dapi2c154c340f172aed52d814616c94be1b"
-
         run: |
-          databricks workspace import_dir --overwrite notebooks /notebooks
+          while IFS= read -r notebook; do
+            databricks workspace import --overwrite "$notebook" "/notebooks/$notebook"
+          done < changed_files.txt
